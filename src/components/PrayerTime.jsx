@@ -58,13 +58,7 @@ const usePrayerTimes = (latitude, longitude, date) => {
       setError(null);
 
       try {
-        const response = await axios.get(`http://api.aladhan.com/v1/timings/${date}?latitude=${latitude}&longitude=${longitude}&method=1`, 
-          {
-            headers: {
-              'Referer': 'https://prayer-time-zone-js.vercel.app/', // Replace with your actual domain
-            },
-          }
-        );
+        const response = await axios.get(`https://api.aladhan.com/v1/timings/${date}?latitude=${latitude}&longitude=${longitude}&method=1`);
         setPrayerTimes(response.data.data.timings);
       } catch (err) {
         setError("Failed to fetch prayer times.");
