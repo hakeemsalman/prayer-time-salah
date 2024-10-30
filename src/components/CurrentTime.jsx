@@ -7,7 +7,7 @@ const mulish = Mulish({ subsets: ["latin"] });
 const source3 = Source_Sans_3({ subsets: ["latin"] });
 
 
-const CurrentTime = () => {
+const CurrentTime = ({setCurrentTime}) => {
   const [hour, setHour] = useState(0);
   const [minute, setMinute] = useState(0);
   const [second, setSecond] = useState(0);
@@ -21,13 +21,15 @@ const CurrentTime = () => {
         setMinute(dt.getMinutes());
         setSecond(dt.getSeconds());
       }, 1000);
-  
+      
       // Cleanup interval on component unmount
     return () => clearInterval(timerId);
   }, []);
 
+  useEffect(() => {
+    setCurrentTime({ hour, minute });
+  }, [hour, minute, setCurrentTime]);
  
-
   return (
       <div className={`${source3.className } font-bold text-3xl md:text-6xl text-white`}>
         <span>{( hour <= 9) ? '0'+hour : hour }:</span>
